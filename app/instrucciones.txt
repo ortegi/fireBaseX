@@ -1,0 +1,157 @@
+1. En visual studio:
+Hacer  nuestros tres archivos main.js, index.html, main.css
+
+
+2. En firebase 
+
+1.Crear un proyecto > proyect overview (descripcion de proyect)> proyect settings > 
+>vemos que no hay proyectos y seleccionamos WEB> Registrar web> app NICKNAME > register> Nos dan unas credenciales
+usamos lo que hay en SCRIPT, copiamos todo el codigo.
+
+2. Copiar el codigo del script en un archivo que crearemos ex. firebase.js 
+
+--------------------------------------------------------------------------
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCp96QfuA3qu-nfFYaskp-HYQoKimH8uYU",
+  authDomain: "fir-app-tuto-d012d.firebaseapp.com",
+  projectId: "fir-app-tuto-d012d",
+  storageBucket: "fir-app-tuto-d012d.appspot.com",
+  messagingSenderId: "367784430615",
+  appId: "1:367784430615:web:81b888b4a28c2f4c1ea052"
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+
+
+3. Exportar app (linea 31)
+
+3. Index.html 
+
+
+ <script src='./main.js' type= 'module'> </script>
+Esto lo ponemos en el head. con la propiedad type='module' hacemos que podamos usar modulos desde ese file.
+
+4. main.js
+
+import './firebase.js'
+
+1. Importamos firebase a main.js para poder usarlo.
+
+5. BootStrap 
+
+En el caso de que queramos usar BootStrap, nos vamos a la documentacion y usaremos dos CDN LINKS
+
+1. el de css --> lo pegamos en el head
+2. el de js --> lo pegamos en la ultima linea del body
+
+
+6. En Firebase (web) > compilar > authentication > getStarted
+
+7. En firebase.js
+
+abrir el link: https://firebase.google.com/docs/web/setup#available-libraries
+
+Alli iremos a:  https://firebase.google.com/docs/web/learn-more#available-libraries
+
+Abrimos la primera pestaña que pone: 
+available libraries : 
+1. Available libraries JS SDKs (from the CDN)
+
+y copiamos: la linea de codigo donde pone 'authentication': 
+
+import { } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+en firebase.js
+
+
+
+8. volvemos a:  https://firebase.google.com/docs/auth/web/start
+
+
+importaremos : getAuth
+
+en firebase.js
+
+se quedara: import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+
+al ejecutar getAuth tenemos que pasarle el app
+
+haremos otra linea de codigo:  --> export const auth = getAuth(app)
+
+
+9. en signUpform.js
+
+estara nuestro formulario : const signUpForm = document.querySelector('#signUp-form')
+
+y en el top del archivo copiaremos: 
+
+import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+ejecutar la funcion de  createUserWithEmailAndPassword de forma async 
+
+1 Parametro: auth. por eso tambien tenemos que importarlo
+
+import {auth} from './firebase.js'  esto lo haremos en signUpForm.js
+
+2. parametro: correo
+3. parametro: contraseña
+
+
+firebase necesita un correo que sea @algo.com y la contraseña +de 6 caracteres
+
+10. en Firebase en users:
+
+activar email and password 
+
+11. toast.
+usar libreria toastify.js
+
+vamos a docs> nos envia a github
+
+Nos da 2 CDN: 
+1. CSS para estilos --> lo copiamos en el head antes del main. css 
+2. JS pegamos el scrip debajo de la etiketa de BootStrap abajo de todo del body.
+
+en documentacion nos da 1 ejemplo:
+
+Toastify({
+  text: "This is a toast",
+  duration: 3000,
+  destination: "https://github.com/apvarun/toastify-js",
+  newWindow: true,
+  close: true,
+  gravity: "top", // `top` or `bottom`
+  position: "left", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+  },
+  onClick: function(){} // Callback after click
+}).showToast()
+
+se puede personalizar el text, la duracion, el background
+
+el codigo lo copiamos en otro archivo: showMessage.js y lo metemos en una:
+
+ export funcion showMessage(message, type){
+    codigo
+ }
+
+12. signUpForm.js
+
+import {showMessage} from './showMessage.js'
+
+13. en main.js
+
+copiamos:
+
+import {onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
